@@ -1,0 +1,17 @@
+
+@import '../styles/globals.scss';
+
+
+.app-title-bar {
+  border: 2px solid getColor(gray, 'xx-dark');
+  @include background(gray, 'light');
+  @include foreground(gray, 'xxx-dark');
+  @include p(x, l);
+  @include p(y, s);
+  @include radius('s');
+  font-weight: 700;
+}
+
+.app-box {
+  @include radius('s');
+}

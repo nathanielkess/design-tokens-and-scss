@@ -1,0 +1,123 @@
+
+$base: 1rem;
+$base-text: 1rem;
+
+$spaceMap: (
+  xxxs: calc(0.10 * #{$base}),
+  xxs: calc(0.25 * #{$base}),
+  xs: calc(0.5 * #{$base}),
+  s: calc(0.75 * #{$base}),
+  m: #{$base},
+  l: calc(1.25 * #{$base}),
+  xl: calc(2 * #{$base}),
+  xxl: calc(3.25 * #{$base}),
+  xxxl: calc(5.25 * #{$base}),
+);
+
+$textMap: (
+  xs: calc(0.5 * #{$base-text}),
+  s: calc(0.75 * #{$base-text}),
+  m: #{$base-text},
+  l: calc(1.25 * #{$base-text}),
+  xl: calc(2 * #{$base-text}),
+  xxl: calc(3.25 * #{$base-text}),
+  xxxl: calc(5.25 * #{$base-text}),
+);
+
+$paletteMap: (
+  red: (
+    base: #cc3656,
+    xx-light: #f597ac,
+    x-light: #e06a84,
+    light: #d84f6d,
+    dark: #9b344a,
+    x-dark: #702031,
+    xx-dark: #571120,
+  ),
+  green: (
+    base: #12721f,
+    xx-light: #4bdd5f,
+    x-light: #33b344,
+    light: #239232,
+    dark: #13521b,
+    x-dark: #13441a,
+    xx-dark: #0c250f,
+  ),
+  blue: (
+    base: #3460d8,
+    xx-light: #65baf3,
+    x-light: #47aafc,
+    light: #2f60e7,
+    dark: #204097,
+    x-dark: #1f3a86,
+    xx-dark: #183179,
+  ),
+  gray: (
+    base: #cfcfcf,
+    xx-light: #f5f5f5,
+    x-light: #ecebeb,
+    light: #e7e5e5,
+    dark: #a7a6a6,
+    x-dark: #7c7c7c,
+    xx-dark: #474747,
+  ),
+  black: #2d2926,
+  white: #ffffff,
+);
+
+
+$columnCount: 12;
+
+
+$tokensConfig: (
+  spaceMap: $spaceMap,
+  textMap: $textMap,
+  radiusMap: (
+    s: map-get($spaceMap, 's'),
+    m: map-get($spaceMap, 'm'),
+    l: map-get($spaceMap, 'l'),
+  ),
+  paletteMap: $paletteMap,
+  directionMap: (
+    l: 'left',
+    r: 'right',
+    t: 'top',
+    b: 'bottom',
+    combined: (
+      x: ( l: 'left', r: 'right' ), //<--combined map
+      y: ( t: 'top', b: 'bottom' ),
+      a: ( l: 'left', r: 'right', t: 'top', b: 'bottom' ),
+    ),
+  ),
+  gridMap: (
+    column-count: 12,
+    column-width: (100 / $columnCount) * 1%,
+    gutter-width: (
+      s: 4px,
+      m: 8px,
+      l: 16px,
+      xl: 24px,
+    ),
+  ),
+  breakPointMap: (
+    s: (
+      min-screen: 0px,
+      max-screen: 599px,
+      gridGutterWidth: 8px,
+    ),
+    m: (
+      min-screen: 300px,
+      max-screen: 599px,
+      gridGutterWidth: 8px,
+    ),
+    l: (
+      min-screen: 600px,
+      max-screen: 999px,
+      gridGutterWidth: 8px,
+    ),
+    xl: (
+      min-screen: 1000px,
+      gridGutterWidth: 8px,
+    ),
+  ),
+)

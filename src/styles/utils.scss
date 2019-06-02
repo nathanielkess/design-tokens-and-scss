@@ -1,0 +1,60 @@
+
+@mixin generateSpaceCssClasses($prefix, $directionM, $scaleM) {
+  $type: 'padding';
+  @if($prefix == m) {
+    $type: 'margin'
+  }
+  @each $direction, $directionValue in $directionM {
+    @each $size, $value in $scaleM {
+      @if type-of($directionValue) == 'map' {
+        @each $combinedDirection, $combinedMap in $directionValue {
+          .#{$prefix}#{$combinedDirection}-#{$size} {
+            @each $combinedKey, $combinedValue in $combinedMap {
+              #{$type}-#{$combinedValue}: $value;
+            }
+          }
+        }
+      } @else {
+        .#{$prefix}#{$direction}-#{$size} { #{$type}-#{$directionValue}: $value; }
+      }
+    }
+  }
+}
+
+
+
+@mixin generateCssClasses($prefix, $property, $scaleMap) {
+  @each $size, $value in $scaleMap {
+    .#{$prefix}-#{$size} { #{$property}: $value; }
+  }
+}
+
+
+@mixin generateColorCssClasses($prefix, $property, $paletteMap) {
+  @each $color, $colorValue in $paletteMap {
+    @if(type-of($colorValue) == 'map') {
+      @each $accent, $accentValue in $colorValue {
+        @if($accent == 'base') {
+          .#{$prefix}-#{$color} { #{$property}: $accentValue; }
+        } @else {
+          .#{$prefix}-#{$color}-#{$accent} { #{$property}: $accentValue; }
+        }
+      }
+    } @else {
+      .#{$prefix}-#{$color} { #{$property}: $colorValue; }
+    }
+  }
+}
+
+
+
+
+@function hsb($h-hsb, $s-hsb, $b-hsb, $a: 1) {
+  @if $b-hsb == 0 {
+    @return hsla(0, 0, 0, $a)
+  } @else {
+    $l-hsl: ($b-hsb/2) * (2 - ($s-hsb/100));
+    $s-hsl: ($b-hsb * $s-hsb) / if($l-hsl < 50, $l-hsl * 2, 200 - $l-hsl * 2);
+    @return hsla($h-hsb, $s-hsl, $l-hsl, $a);
+  }
+}

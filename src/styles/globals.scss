@@ -1,0 +1,110 @@
+@import "./tokens.scss";
+@import "./utils.scss";
+
+
+@include generateSpaceCssClasses(
+  'p',
+  map-get($tokensConfig, 'directionMap'),
+  map-get($tokensConfig, 'spaceMap')
+);
+
+
+@mixin p($direction, $size) {
+  @if($direction == 'l') { padding-left: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'r') { padding-right: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 't') { padding-top: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'b') { padding-bottom: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'x') { padding-left: map-get(map-get($tokensConfig, 'spaceMap'), $size); padding-right: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'y') { padding-top: map-get(map-get($tokensConfig, 'spaceMap'), $size); padding-bottom: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'a') { padding: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+}
+
+
+//<---------------------------------------------------->
+//<--------------MARGIN TOKENS------------------------->
+//<---------------------------------------------------->
+// eg: .ml-xxl { margin-left: $value }
+@include generateSpaceCssClasses(
+  'm',
+  map-get($tokensConfig, 'directionMap'),
+  map-get($tokensConfig, 'spaceMap')
+);
+
+@mixin m($direction, $size) {
+  @if($direction == 'l') { margin-left: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'r') { margin-right: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 't') { margin-top: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'b') { margin-bottom: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'x') { margin-left: map-get(map-get($tokensConfig, 'spaceMap'), $size); margin-right: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'y') { margin-top: map-get(map-get($tokensConfig, 'spaceMap'), $size); margin-bottom: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+  @if($direction == 'a') { margin: map-get(map-get($tokensConfig, 'spaceMap'), $size); }
+}
+
+
+//<---------------------------------------------------->
+//<--------------TYPOGRAPHY TOKEN---------------------->
+//<---------------------------------------------------->
+@include generateCssClasses(
+  'text',
+  'font-size',
+  map-get($tokensConfig, 'textMap')
+);
+
+@mixin text($size) {
+  font-size: map-get(map-get($tokensConfig, 'textMap'), $size);
+}
+
+
+
+//<---------------------------------------------------->
+//<--------------BORDER RADIUS TOKEN------------------->
+//<---------------------------------------------------->
+@include generateCssClasses(
+  'radius',
+  'border-radius',
+  map-get($tokensConfig, 'radiusMap')
+);
+
+@mixin radius($size) {
+  border-radius: map-get(map-get($tokensConfig, 'radiusMap'), $size);
+}
+
+
+//<---------------------------------------------------->
+//<--------------COLOR TOKENS-------------------------->
+//<---------------------------------------------------->
+@function getColor($color, $accent: 'base') {
+  $paletteMap: map-get($tokensConfig, 'paletteMap');
+  $colorChoice: map-get($paletteMap, $color);
+  @if(type-of($colorChoice) == 'map') {
+    @return map-get($colorChoice, $accent);
+  } @else {
+    @return $colorChoice;
+  }
+}
+
+@mixin background($color, $accent: 'base') {
+  background-color: getColor($color, $accent);
+}
+
+@mixin foreground($color, $accent: 'base') {
+  color: getColor($color, $accent);
+}
+
+@include generateColorCssClasses(
+  'bg',
+  'background-color',
+  map-get($tokensConfig, 'paletteMap')
+);
+
+@include generateColorCssClasses(
+  'text-color',
+  'color',
+  map-get($tokensConfig, 'paletteMap')
+);
+
+
+
+//<------------------Utilities--------------------->//
+.inline-block { display:inline-block; }
+.block { display: block; }
